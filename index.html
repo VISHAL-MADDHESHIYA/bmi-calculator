@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Modern BMI Calculator - Calculate BMI, category, ideal weight range and view BMI history.">
+
+    <title>Vishal | BMI Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="logo">
+            <div class="logo-icon">⚖️</div>
+
+            <div>
+                <h1>BMI<span>Calc</span></h1>
+                <p>Smart Health Calculator</p>
+            </div>
+        </div>
+
+        <button id="themeBtn" class="theme-btn" title="Toggle theme">
+            🌙
+        </button>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="container">
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div>
+                <span class="badge">HEALTH • WELLNESS • FITNESS</span>
+
+                <h2>
+                    Understand your
+                    <span>Body Mass Index</span>
+                </h2>
+
+                <p>
+                    Enter your height and weight to calculate your BMI,
+                    understand your category and get personalized insights.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- ================= CALCULATOR ================= -->
+
+        <section class="calculator-grid">
+
+            <!-- LEFT CARD -->
+
+            <div class="card input-card">
+
+                <div class="card-header">
+                    <div>
+                        <span class="section-label">STEP 01</span>
+                        <h3>Your Measurements</h3>
+                    </div>
+
+                    <span class="card-icon">📏</span>
+                </div>
+
+
+                <form id="bmiForm">
+
+                    <!-- HEIGHT -->
+
+                    <div class="input-group">
+
+                        <label for="height">
+                            Height
+                            <span>in centimeters</span>
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="number"
+                                id="height"
+                                placeholder="e.g. 175"
+                                min="50"
+                                max="250"
+                                step="0.1"
+                            >
+
+                            <span>cm</span>
+
+                        </div>
+
+                        <small id="heightError" class="error"></small>
+
+                    </div>
+
+
+                    <!-- WEIGHT -->
+
+                    <div class="input-group">
+
+                        <label for="weight">
+                            Weight
+                            <span>in kilograms</span>
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="number"
+                                id="weight"
+                                placeholder="e.g. 70"
+                                min="10"
+                                max="300"
+                                step="0.1"
+                            >
+
+                            <span>kg</span>
+
+                        </div>
+
+                        <small id="weightError" class="error"></small>
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="button-group">
+
+                        <button type="submit" class="calculate-btn">
+                            Calculate BMI
+                            <span>→</span>
+                        </button>
+
+                        <button type="button" id="resetBtn" class="reset-btn">
+                            Reset
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <!-- QUICK INFO -->
+
+                <div class="info-box">
+
+                    <span>💡</span>
+
+                    <p>
+                        BMI is calculated using:
+                        <strong>weight ÷ height²</strong>
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT RESULT CARD -->
+
+            <div class="card result-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <span class="section-label">STEP 02</span>
+                        <h3>Your Result</h3>
+                    </div>
+
+                    <span class="card-icon">📊</span>
+
+                </div>
+
+
+                <!-- INITIAL STATE -->
+
+                <div id="emptyResult" class="empty-result">
+
+                    <div class="empty-icon">
+                        🧮
+                    </div>
+
+                    <h4>Your BMI will appear here</h4>
+
+                    <p>
+                        Enter your height and weight to get your
+                        personalized result.
+                    </p>
+
+                </div>
+
+
+                <!-- RESULT -->
+
+                <div id="resultContent" class="result-content hidden">
+
+                    <div class="bmi-number">
+
+                        <span>Your BMI</span>
+
+                        <strong id="bmiValue">
+                            0.0
+                        </strong>
+
+                        <div id="categoryBadge" class="category-badge">
+                            Normal
+                        </div>
+
+                    </div>
+
+
+                    <!-- BMI BAR -->
+
+                    <div class="bmi-scale">
+
+                        <div class="scale-labels">
+                            <span>Under</span>
+                            <span>Normal</span>
+                            <span>Over</span>
+                            <span>Obese</span>
+                        </div>
+
+                        <div class="scale-bar">
+
+                            <div class="scale-segment under"></div>
+                            <div class="scale-segment normal"></div>
+                            <div class="scale-segment over"></div>
+                            <div class="scale-segment obese"></div>
+
+                            <div id="scaleMarker" class="scale-marker">
+                                ▼
+                            </div>
+
+                        </div>
+
+                        <div class="scale-values">
+                            <span>18.5</span>
+                            <span>25</span>
+                            <span>30</span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- DETAILS -->
+
+                    <div class="details-grid">
+
+                        <div class="detail-box">
+
+                            <span>🎯</span>
+
+                            <div>
+                                <small>Ideal Weight</small>
+
+                                <strong id="idealWeight">
+                                    --
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="detail-box">
+
+                            <span>💬</span>
+
+                            <div>
+                                <small>Status</small>
+
+                                <strong id="statusText">
+                                    --
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- HEALTH MESSAGE -->
+
+                    <div id="healthMessage" class="health-message">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= BMI GUIDE ================= -->
+
+        <section class="card guide-card">
+
+            <div class="card-header">
+
+                <div>
+                    <span class="section-label">BMI GUIDE</span>
+                    <h3>What does your BMI mean?</h3>
+                </div>
+
+            </div>
+
+
+            <div class="category-grid">
+
+                <div class="category under-card">
+                    <span>18.5</span>
+                    <h4>Underweight</h4>
+                    <p>Below 18.5</p>
+                </div>
+
+                <div class="category normal-card">
+                    <span>18.5 – 24.9</span>
+                    <h4>Normal</h4>
+                    <p>Healthy range</p>
+                </div>
+
+                <div class="category over-card">
+                    <span>25 – 29.9</span>
+                    <h4>Overweight</h4>
+                    <p>Above normal</p>
+                </div>
+
+                <div class="category obese-card">
+                    <span>30+</span>
+                    <h4>Obesity</h4>
+                    <p>High BMI range</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= HISTORY ================= -->
+
+        <section class="card history-card">
+
+            <div class="card-header">
+
+                <div>
+                    <span class="section-label">HISTORY</span>
+                    <h3>Recent Calculations</h3>
+                </div>
+
+                <button id="clearHistoryBtn" class="clear-history">
+                    Clear History
+                </button>
+
+            </div>
+
+
+            <div id="historyContainer" class="history-container">
+
+                <div class="no-history">
+                    <span>📋</span>
+                    <p>No calculations yet.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= DISCLAIMER ================= -->
+
+        <section class="disclaimer">
+
+            <strong>⚠️ Important:</strong>
+
+            BMI is a general screening tool and does not directly measure
+            body fat or overall health. For health concerns, consult a
+            qualified healthcare professional.
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            Built with HTML5 • CSS3 • JavaScript
+        </p>
+
+        <p>
+            © 2026 Vishal Maddheshiya
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
